@@ -1,8 +1,8 @@
-# <center>esbundler 🐿</center>
-
-#### <center>Bundle up ts/js files and their dependencies!</center>
-
-##### <center>🟢 _Pull Requests Welcome!_ 🟢</center>
+<div align="center">
+<h1>esbundler 🐿</h1>
+<h4>Bundle up ts/js files and their dependencies!</h4>
+<p>🟢 <em>Pull Requests Welcome!</em> 🟢</p>
+</div>
 
 ---
 
