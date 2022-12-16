@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@esbuild-plugins/node-resolve": "^0.1.4",
+    "@fal-works/esbuild-plugin-global-externals": "^2.1.2",
     "esbuild": "^0.15.5",
     "uuid": "^8.3.2"
   }

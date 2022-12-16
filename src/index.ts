@@ -2,18 +2,23 @@ import path from 'path';
 import * as esbuild from 'esbuild';
 import { v4 as uuid } from 'uuid';
 import { NodeResolvePlugin } from '@esbuild-plugins/node-resolve';
+import {
+  globalExternals,
+  ModuleInfo,
+} from '@fal-works/esbuild-plugin-global-externals';
 import { StringDecoder } from 'string_decoder';
 import type { Plugin, Loader, Format } from 'esbuild';
 
 type BundleOptions = {
   files?: Record<string, string>;
+  globals?: Record<string, string | ModuleInfo>;
 };
 
 type Bundle = {
   source: string;
 } & BundleOptions;
 
-async function bundle({ source, files = {} }: Bundle) {
+async function bundle({ source, files = {}, globals = {} }: Bundle) {
   const absoluteFiles: Record<string, string> = {};
   const cwd = path.join(process.cwd(), '__esbundler_fake_dir__');
 
@@ -97,6 +102,7 @@ async function bundle({ source, files = {} }: Bundle) {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
     plugins: [
+      globalExternals(globals),
       NodeResolvePlugin({
         extensions: ['.js', '.ts'],
         resolveOptions: { basedir: cwd },
