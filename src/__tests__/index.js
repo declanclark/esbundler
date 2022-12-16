@@ -1,7 +1,7 @@
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
 import { bundle } from '../../lib/index.js';
-import { getBundle } from '../../lib/client.js';
+import * as esbundler from '../../client/index.js';
 import * as Globals from './globals.js';
 
 test('smoke test', async () => {
@@ -56,7 +56,7 @@ export const MY_NUMBER = 5;
     },
   });
 
-  const result = getBundle(code, {
+  const result = esbundler.getBundle(code, {
     myGlobals: Globals,
   });
 
