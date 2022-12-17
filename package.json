@@ -11,6 +11,7 @@
   "type": "module",
   "scripts": {
     "build": "kcd-scripts build",
+    "postbuild": "node ./other/convert-to-cjs.js",
     "test": "npm run build && uvu src/__tests__",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
