@@ -61,7 +61,8 @@ export const MY_NUMBER = 5;
   });
 
   assert.equal(result.id, 'src');
-  assert.equal(result.eg(), 2);
+  assert.type(result.eg, 'function');
+  if (typeof result.eg === 'function') assert.equal(result.eg(), 2);
   assert.equal(result.demo, "Mambo's favourite number is: 5");
   assert.equal(result.my_global_str, 'this-is-a-global');
   assert.equal(result.my_global_hello, 'Hello, world! (global)');

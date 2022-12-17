@@ -1,13 +1,10 @@
 {
+  "extends": "./node_modules/kcd-scripts/shared-tsconfig.json",
   "compilerOptions": {
+    "rootDir": "src",
     "target": "ES2020",
     "module": "ES2020",
-    "declaration": true,
-    "outDir": "./lib",
-    "strict": true,
-    "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node",
-    "allowJs": true
+    "allowJs": true,
+    "checkJs": true
   }
 }

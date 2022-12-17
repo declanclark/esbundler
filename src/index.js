@@ -78,7 +78,7 @@ async function bundle({ source, files = {}, globals = {} }) {
         ) {
           loader = build.initialOptions.loader[`.${fileType}`];
         } else {
-          loader = fileType;
+          loader = /** @type import('esbuild').Loader */ (fileType);
         }
 
         return {
@@ -106,7 +106,7 @@ async function bundle({ source, files = {}, globals = {} }) {
     ],
     bundle: true,
     minify: true,
-    format: 'iife',
+    format: /** @type import('esbuild').Format */ ('iife'),
     globalName: 'Bundle',
   };
 
