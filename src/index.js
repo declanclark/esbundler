@@ -2,24 +2,17 @@ import path from 'path';
 import * as esbuild from 'esbuild';
 import { v4 as uuid } from 'uuid';
 import { NodeResolvePlugin } from '@esbuild-plugins/node-resolve';
-import {
-  globalExternals,
-  ModuleInfo,
-} from '@fal-works/esbuild-plugin-global-externals';
+import { globalExternals } from '@fal-works/esbuild-plugin-global-externals';
 import { StringDecoder } from 'string_decoder';
-import type { Plugin, Loader, Format } from 'esbuild';
 
-type BundleOptions = {
-  files?: Record<string, string>;
-  globals?: Record<string, string | ModuleInfo>;
-};
-
-type Bundle = {
-  source: string;
-} & BundleOptions;
-
-async function bundle({ source, files = {}, globals = {} }: Bundle) {
-  const absoluteFiles: Record<string, string> = {};
+/**
+ *
+ * @param {import('./types').Bundle} options
+ * @returns
+ */
+async function bundle({ source, files = {}, globals = {} }) {
+  /** @type Record<string, string> */
+  const absoluteFiles = {};
   const cwd = path.join(process.cwd(), '__esbundler_fake_dir__');
 
   if (typeof source !== 'string') throw new Error('`source` must be a string!');
@@ -31,7 +24,8 @@ async function bundle({ source, files = {}, globals = {} }: Bundle) {
     absoluteFiles[path.join(cwd, filePath)] = fileCode;
   }
 
-  const inMemoryPlugin: Plugin = {
+  /** @type import('esbuild').Plugin */
+  const inMemoryPlugin = {
     name: 'inMemory',
     setup(build) {
       build.onResolve({ filter: /.*/ }, ({ path: filePath, importer }) => {
@@ -75,7 +69,8 @@ async function bundle({ source, files = {}, globals = {} }: Bundle) {
         const fileType = (path.extname(filePath) || '.ts').slice(1);
         const contents = absoluteFiles[filePath];
 
-        let loader: Loader;
+        /** @type import('esbuild').Loader */
+        let loader;
 
         if (
           build.initialOptions.loader &&
@@ -83,7 +78,7 @@ async function bundle({ source, files = {}, globals = {} }: Bundle) {
         ) {
           loader = build.initialOptions.loader[`.${fileType}`];
         } else {
-          loader = fileType as Loader;
+          loader = fileType;
         }
 
         return {
@@ -111,7 +106,7 @@ async function bundle({ source, files = {}, globals = {} }: Bundle) {
     ],
     bundle: true,
     minify: true,
-    format: 'iife' as Format,
+    format: 'iife',
     globalName: 'Bundle',
   };
 

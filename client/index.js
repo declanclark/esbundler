@@ -1,1 +1,1 @@
-export * from '../lib/client.js';
+module.exports = require('../lib/client');

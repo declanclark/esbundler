@@ -1,7 +1,7 @@
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
-import { bundle } from '../../lib/index.js';
-import * as esbundler from '../../client/index.js';
+import { bundle } from '../index.js';
+import * as esbundler from '../client.js';
 import * as Globals from './globals.js';
 
 test('smoke test', async () => {
